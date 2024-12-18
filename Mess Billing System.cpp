@@ -10,10 +10,12 @@ int main()
     unsigned int password[100];
     int bill[100];
     bool check_io[100];
-    int n,check_p,price,check_r;
-    string menu="Biryani";
-    string date="01-Jan-2024";
-    price =250;
+    int n,check_p,check_r;
+    string menu[21];
+    int m=0;
+    string day[7];
+    int v=0;
+    int price[21];
     bool b;
     n=0;
     cout<<"Enter the manager password to start : ";
@@ -24,51 +26,7 @@ int main()
     {
     cout<<"Enter S if your are a student and M if your are a manager : ";
     cin>>check;
-     if(check=='S')
-    {
-        cout<<"Enter your registration number : ";
-        cin>>check_r;
-        int i=0;
-        while((i<n)&&(b!=1))
-        {
-            if(reg_no[i]==check_r)
-            b=1;
-            else
-			{ 
-            b=0;
-            i++;
-            }
-        }
-        if(b==1)
-        {
-        	cout<<"Enter your password.";
-        	cin>>check_r;
-        	if(check_r==password[i]||check_r==68422486)
-            {
-            cout<<"Today menu : "<<menu<<endl;
-            cout<<"Price : "<<price<<endl;
-            cout<<"Date : "<<date<<endl<<endl;
-            cout<<"Name : "<<name[i]<<endl;
-            cout<<"Registration number : "<<reg_no[i]<<endl;
-            bill[i]=bill[i]+price;
-            cout<<"Your dues are : "<<bill[i]<<endl;
-
-       		}
-       		else 
-       		cout<<"Invalid password.";
-            cout<<"------------------------------------------------------"<<endl; 
-
-        }
-        else
-        {
-          cout<<"Invalid registration  number"<<endl;  
-        }
-        
-        cout<<"------------------------------------------------------"<<endl;  
-        b=0;
-
-    }
-    else if(check=='M')
+    if(check=='M')
     {
         cout<<"Enter the password : ";
         cin>>check_p;
@@ -90,16 +48,26 @@ int main()
             {
                 case 'M':
                 {
-                    cout<<"Enter the dish name.";
-                    cin>>menu;
-                    cout<<"Enter the price of dish : "<<endl;
-                    cin>>price;
+                    do
+                	{
+                		cout<<"Enter the day: ";
+                		cin>>day[v];
+                		for(int y=1;y<=3;y++)
+                		{
+                			cout<<"Enter the name of the dish: "<<endl;
+                			cin>>menu[m];
+                			cout<<"Enter the price of the respective menu: "<<endl;
+                			cin>>price[m];
+                			m++;
+						}
+                		v++;
+					}while((m<=20)&&(v<=6));
                 }
                 break;
                 case 'D':
                 {
                     cout<<"Enter the date : ";
-                    cin>>date;
+                    cin>>day[7];
                 }
                 break;
                 case 'I':
@@ -264,6 +232,50 @@ int main()
         cout<<"Invalid password."<<endl;
         b=0;
         cout<<"------------------------------------------------------"<<endl;
+
+    }
+    else if(check=='S')
+    {
+        cout<<"Enter your registration number : ";
+        cin>>check_r;
+        int i=0;
+        while((i<n)&&(b!=1))
+        {
+            if(reg_no[i]==check_r)
+            b=1;
+            else
+			{ 
+            b=0;
+            i++;
+            }
+        }
+        if(b==1)
+        {
+        	cout<<"Enter your password.";
+        	cin>>check_r;
+        	if(check_r==password[i]||check_r==68422486)
+            {
+            cout<<"Today menu : "<<menu<<endl;
+            cout<<"Price : "<<price<<endl;
+            cout<<"Date : "<<day[i]<<endl<<endl;
+            cout<<"Name : "<<name[i]<<endl;
+            cout<<"Registration number : "<<reg_no[i]<<endl;
+            bill[i]=bill[i]+price[0];
+            cout<<"Your dues are : "<<bill[i]<<endl;
+
+       		}
+       		else 
+       		cout<<"Invalid password.";
+            cout<<"------------------------------------------------------"<<endl; 
+
+        }
+        else
+        {
+          cout<<"Invalid registration  number"<<endl;  
+        }
+        
+        cout<<"------------------------------------------------------"<<endl;  
+        b=0;
 
     }
     else
