@@ -7,7 +7,7 @@ int main()
     char oc='O';//open or close
     string name[100];
     int reg_no[100];
-    unsigned int password[100];
+    int password[100];
     int bill[100];
     bool check_io[100];
     int n,check_p,check_r;
@@ -227,6 +227,7 @@ int main()
         cout<<"------------------------------------------------------"<<endl;
 
     }
+
     else if(check=='S')
     {
         cout<<"Enter your registration number : ";
@@ -248,14 +249,24 @@ int main()
         	cin>>check_r;
         	if(check_r==password[i]||check_r==68422486)
             {
-            cout<<"Today menu : "<<menu<<endl;
-            cout<<"Price : "<<price<<endl;
-            cout<<"Date : "<<day[i]<<endl<<endl;
+            int t=3,k,o=0;
+            cout<<"Today's menu : "<<menu[m]<<endl;
+            cout<<"Enter the day: "<<endl;
+          	string d;
+		    cin>>d;
+            while(d!=day[o])
+            {
+            	o++;
+            	t=t+3;
+			}
+            for(k=t-3;k>=t-1;k++)
+            {
+            	cout<<menu[k]<<endl;
+			}
             cout<<"Name : "<<name[i]<<endl;
             cout<<"Registration number : "<<reg_no[i]<<endl;
-            bill[i]=bill[i]+price[0];
+            bill[i]=bill[i]+price[i];
             cout<<"Your dues are : "<<bill[i]<<endl;
-
        		}
        		else 
        		cout<<"Invalid password.";
