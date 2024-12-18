@@ -34,7 +34,6 @@ int main()
         {
             char checker;
             cout<<"Press M to change menu. "<<endl;
-            cout<<"Press D to change date. "<<endl;
             cout<<"Press I to mess in or mess out a student. "<<endl;
             cout<<"Press A to add a student."<<endl;
             cout<<"Press P to print all students mess bills. "<<endl;
@@ -62,12 +61,6 @@ int main()
 						}
                 		v++;
 					}while((m<=20)&&(v<=6));
-                }
-                break;
-                case 'D':
-                {
-                    cout<<"Enter the date : ";
-                    cin>>day[7];
                 }
                 break;
                 case 'I':
