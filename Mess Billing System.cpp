@@ -11,9 +11,11 @@ int main()
     int bill[100];
     bool check_io[100];
     int n,check_p,price,check_r;
-    string menu="Biryani";
-    string date="01-Jan-2024";
-    price =250;
+    string menu[21];
+    int m=0;
+    string day[7];
+    int v=0;
+    int price[21];
     bool b;
     n=0;
     cout<<"Enter the manager password to start : ";
