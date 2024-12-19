@@ -3,6 +3,228 @@
 
 using namespace std;
 
+void menuFunction(string day[],int &v,string menu[],int price[],int &m)
+{
+    do
+    {
+        cout<<"Enter the day: "<<endl;
+    	cin>>day[v];                                //stores the input in the array of the datatype string
+        for(int y=1;y<=3;y++)
+        {
+            cout<<"Enter the name of the dish: "<<endl;
+            cin>>menu[m];                                                   //used to store the name of the menu in the array menu of the string datatype as there are 21 meal the size of the arrat is 21
+            cout<<"Enter the price of the respective menu: "<<endl;
+            cin>>price[m];                                                  //used to store the price of the respective menu entered by the manager prior to this as their are 27 meals so there are 21 menus as well
+            m++;                                                            //as there are three meals each day therefore the menu and price are entered three times for each day using the nested loop
+		}
+        v++;                                                                //increments the day number
+	}while((m<21)&&(v<7));                                                  //checks whether the day number or the food number has exceeded the limit if it does the loop stops iterating and the manager has successfully filledd the mess menu along with repective prices
+}
+
+
+
+
+
+void messInOutFunction(int check_r,int total,int reg_no[],bool check_io[])
+{
+    cout<<"Enter the registration number of student : ";
+    cin>>check_r;
+    bool q=0;
+    int j=0;
+    while((j<total)&&(q!=1))                        //the while loop iterates till the registration number is found inside the record
+    {
+        if(reg_no[j]==check_r)                      //checks whether the entered registration number of the student matches with the one in the record
+        {
+            q=1;                                    //if the condition is satisfied the value of the variable q becomes one and as the loop iterates once again the condition is unsatisfied and the iterations stop
+        }
+        else
+        {
+            q=0;                                    //retains the value of q to be zero so that the loop keeps on iterating until the registration number is found in the record
+            j++;                                    
+        }                      
+    }
+    if(q==1)
+    {
+        cout<<"Press I to mess in a student or O to mess out a student.";
+        char b;                 
+        cin>>b;
+        if(b=='I')
+        check_io[j]=1;                              //stores 1 in the boolean array element of the respective student indicating that the student is in
+        else if(b=='O')
+        check_io[j]=0;                              //stores 0 in the boolean array element of the respective student indicating that the student is out
+        else
+        cout<<"Invalid input."<<endl;
+        cout<<"------------------------------------------------------"<<endl;
+    }
+    else
+    cout<<"Invalid registration number."<<endl;     //if the boolean variable q is not equal to one this indicates that the registration number of the student was never found in the record of the students in the mess
+    cout<<"------------------------------------------------------"<<endl;
+}
+
+
+
+void addStudentFunction(int total,int n,string name[],int reg_no[],int password[],int bill[])
+{
+    total=n+1;                                      //increases the total number of students as a new one is added
+    cout<<"Enter the student name : ";
+    cin>>name[n];                                   //stores the name of the new student in the array, names, of string datatype
+    cout<<"Enter the student registration number : ";
+    cin>>reg_no[n];                                 //stores the registration nuumber of the new student in the array, reg_no, element of the respective student
+    cout<<"Enter the student pasword."; 
+    cin>>password[n];                               //sets the password of the new student to be used later by that student to check the menu of the week and to check his dues
+    cout<<"New student name : "<<name[n]<<endl;
+    cout<<"New student registration number : "<<reg_no[n]<<endl;
+    cout<<"New student password : "<<password[n]<<endl;
+    bill[n]=0;                                      //as the student is new therefore his bill is initialized to zero
+    cout<<"------------------------------------------------------"<<endl;
+    n++;
+}
+
+
+
+
+
+
+void printAllstudentsMessBills(int total,string name[],int reg_no[],int bill[])
+{
+    for(int i=0;i<total;i++)
+    {
+        cout<<"Name : "<<name[i]<<endl;
+        cout<<"Reg no. : "<<reg_no[i]<<endl;
+        cout<<"Total Bill : "<<bill[i]<<endl<<endl;
+    }
+}
+
+
+
+
+void printSingleStudentMessBill(int check_r,int total,int reg_no[],string name[],int bill[])
+{
+    cout<<"Enter the registration number of student : ";
+    cin>>check_r;
+    bool q=0;
+    int j=0;
+    while((j<total)&&(q!=1))
+    {
+        if(reg_no[j]==check_r)
+        {
+            q=1;
+        }
+        else
+        {
+            q=0; 
+            j++;
+        }                      
+    }
+    if(q==1)
+    {
+        cout<<"Name : "<<name[j]<<endl;
+        cout<<"Registration number : "<<reg_no[j]<<endl;
+        cout<<"Total bill : "<<bill[j]<<endl;
+        cout<<"------------------------------------------------------"<<endl;
+    }
+    else
+    {
+        cout<<"Invalid registration number."<<endl;
+        cout<<"------------------------------------------------------"<<endl;
+    }
+}
+
+
+
+
+
+void checkStudentProfileFunction(int check_r,int total,int reg_no[],string name[],int password[],int bill[])
+{
+    cout<<"Enter the registration number of student : ";
+    cin>>check_r;                               //stores the registration number of the particular student whose profile is to be determined
+    bool q=0;
+    int j=0;
+    while((j<total)&&(q!=1))                    //the loop iterates to find the entered registration number in the record of the registration number
+    {
+        if(reg_no[j]==check_r)
+        {
+            q=1;                                //if the registration number matches an element in the array of registration numbers, then the boolean variable q is assigned the value of 1 so that it can stop the iterations of the loop 
+        }
+        else
+        {
+            q=0;                                //if the registration number doesn't match the element of the array reg_no then the value of the boolean variable q is retained and j increments by 1
+            j++;
+		}
+    }
+    if(q==1)                                    //if the value of the boolean variable is one then this means that the registration number has been found among the registration numbers stored in the array reg_no
+    {
+        cout<<"Name : "<<name[j]<<endl;
+        cout<<"Registration number : "<<reg_no[j]<<endl;
+        cout<<"Password : "<<password[j]<<endl;
+        cout<<"Bill due : "<<bill[j]<<endl;
+        cout<<"------------------------------------------------------"<<endl;
+	}
+    else
+    {
+        cout<<"Invalid registration number.";   //if the value of the boolean variable is not 1 but 0, then this means that the registration number has not been found among the registration numbers stored in the array
+    }
+}
+
+
+
+
+
+
+
+void billPaymentFunction(int check_r,int total,int reg_no[],int bill[],string name[])
+{
+    cout<<"Enter the student registration number : ";
+    cin>>check_r;
+    bool q=0;
+    int j=0;
+    while((j<total)&&(q!=1))
+    {
+        if(reg_no[j]==check_r)
+        {
+            q=1;
+        }
+        else
+        {
+            q=0; 
+            j++;
+		}
+    }
+    if(q==1)                                    //if the value of the boolean variable is 1, that means that the registration number of that particular student has been found
+    {
+        cout<<bill[j]<<endl;
+        cout<<"Enter P if the bill is payed and N if not: ";
+        char r;
+        cin>>r;
+        if(r=='P')
+        {
+            bill[j]=0;
+            cout<<"The due bill of the student "<<name[j]<<", registration number "<<reg_no[j]<< "is: "<<bill[j]<<endl;
+        }
+        else if(r=='N')
+        {
+            cout<<"The due bill is not payed"<<endl;
+            cout<<"The due bill of the student "<<name[j]<<", registration number "<<reg_no[j]<< "is: "<<bill[j]<<endl;
+        }
+        else
+        {
+            cout<<"Invalid input."<<endl;
+        }
+        cout<<"------------------------------------------------------"<<endl;
+    }
+    else
+    {
+        cout<<"Invalid registration number"<<endl;
+    }
+}
+
+
+
+
+
+
+
+
 int main()
 {
     char check;                                                     //to either he is a consumer or mess owner
@@ -51,73 +273,17 @@ int main()
             {
                 case 'M':
                 {
-                    do
-                	{
-                		cout<<"Enter the day: "<<endl;
-                		cin>>day[v];                                //stores the input in the array of the datatype string
-                		for(int y=1;y<=3;y++)
-                		{
-                			cout<<"Enter the name of the dish: "<<endl;
-                			cin>>menu[m];                                                   //used to store the name of the menu in the array menu of the string datatype as there are 21 meal the size of the arrat is 21
-                			cout<<"Enter the price of the respective menu: "<<endl;
-                			cin>>price[m];                                                  //used to store the price of the respective menu entered by the manager prior to this as their are 27 meals so there are 21 menus as well
-                			m++;                                                            //as there are three meals each day therefore the menu and price are entered three times for each day using the nested loop
-						}
-                		v++;                                                                //increments the day number
-					}while((m<21)&&(v<7));                                                  //checks whether the day number or the food number has exceeded the limit if it does the loop stops iterating and the manager has successfully filledd the mess menu along with repective prices                                                
+                    menuFunction(day,v,menu,price,m);                                            
                 }
                 break;
                 case 'I':                                           //in this block of code the registration number of thr particular student is stored who enters the mess
                 {
-                    cout<<"Enter the registration number of student : ";
-                    cin>>check_r;
-                    bool q=0;
-                    int j=0;
-                    while((j<total)&&(q!=1))                        //the while loop iterates till the registration number is found inside the record
-                    {
-                        if(reg_no[j]==check_r)                      //checks whether the entered registration number of the student matches with the one in the record
-                        {
-                            q=1;                                    //if the condition is satisfied the value of the variable q becomes one and as the loop iterates once again the condition is unsatisfied and the iterations stop
-                        }
-                        else
-                        {
-                            q=0;                                    //retains the value of q to be zero so that the loop keeps on iterating until the registration number is found in the record
-                            j++;                                    
-                        }                      
-                    }
-                    if(q==1)
-                    {
-                        cout<<"Press I to mess in a student or O to mess out a student.";
-                        char b;                 
-                        cin>>b;
-                        if(b=='I')
-                        check_io[j]=1;                              //stores 1 in the boolean array element of the respective student indicating that the student is in
-                        else if(b=='O')
-                        check_io[j]=0;                              //stores 0 in the boolean array element of the respective student indicating that the student is out
-                        else
-                        cout<<"Invalid input."<<endl;
-                        cout<<"------------------------------------------------------"<<endl;
-                    }
-                    else
-                    cout<<"Invalid registration number."<<endl;     //if the boolean variable q is not equal to one this indicates that the registration number of the student was never found in the record of the students in the mess
-                    cout<<"------------------------------------------------------"<<endl;
+                    messInOutFunction(check_r,total,reg_no,check_io);
                 }
                 break;
                 case 'A':                                           //chunk of code used for adding a new student to the mess
                 {
-                    total=n+1;                                      //increases the total number of students as a new one is added
-                    cout<<"Enter the student name : ";
-                    cin>>name[n];                                   //stores the name of the new student in the array, names, of string datatype
-                    cout<<"Enter the student registration number : ";
-                    cin>>reg_no[n];                                 //stores the registration nuumber of the new student in the array, reg_no, element of the respective student
-                    cout<<"Enter the student pasword."; 
-                    cin>>password[n];                               //sets the password of the new student to be used later by that student to check the menu of the week and to check his dues
-                    cout<<"New student name : "<<name[n]<<endl;
-                    cout<<"New student registration number : "<<reg_no[n]<<endl;
-                    cout<<"New student password : "<<password[n]<<endl;
-                    bill[n]=0;                                      //as the student is new therefore his bill is initialized to zero
-                    cout<<"------------------------------------------------------"<<endl;
-                    n++;
+                    addStudentFunction(total,n,name,reg_no,password,bill);
                 }
                 break;
                 case 'C':                                           //this case closes the mess billing system as the compiler reaches the condition of the do while loop which states that the loop will keep on iterating till the value of the string variable oc is 'c'
@@ -127,120 +293,24 @@ int main()
                 break;
                 case 'P':
                 {
-                    for(int i=0;i<total;i++)
-                    {
-                        cout<<"Name : "<<name[i]<<endl;
-                        cout<<"Reg no. : "<<reg_no[i]<<endl;
-                        cout<<"Total Bill : "<<bill[i]<<endl<<endl;
-                    }
+                    printAllstudentsMessBills(total,name,reg_no,bill);
                 }
                 break;
                 case 'S':
                 {
-                    cout<<"Enter the registration number of student : ";
-                    cin>>check_r;
-                    bool q=0;
-                    int j=0;
-                    while((j<total)&&(q!=1))
-                    {
-                        if(reg_no[j]==check_r)
-                        {
-                            q=1;
-                        }
-                        else
-                        {
-                            q=0; 
-                            j++;
-                        }                      
-                    }
-                    if(q==1)
-                    {
-                        cout<<"Name : "<<name[j]<<endl;
-                        cout<<"Registration number : "<<reg_no[j]<<endl;
-                        cout<<"Total bill : "<<bill[j]<<endl;
-                        cout<<"------------------------------------------------------"<<endl;
-                    }
-                    else
-                    {
-                       cout<<"Invalid registration number."<<endl;
-                       cout<<"------------------------------------------------------"<<endl;
-                    }
+                    printSingleStudentMessBill(check_r,total,reg_no,name,bill);
                 }
                 break;
                 case 'O':                                           //used to check the profile of a particular student
                 {
-            	    cout<<"Enter the registration number of student : ";
-                    cin>>check_r;                               //stores the registration number of the particular student whose profile is to be determined
-                    bool q=0;
-                    int j=0;
-                    while((j<total)&&(q!=1))                    //the loop iterates to find the entered registration number in the record of the registration number
-                    {
-                        if(reg_no[j]==check_r)
-                        {
-                            q=1;                                //if the registration number matches an element in the array of registration numbers, then the boolean variable q is assigned the value of 1 so that it can stop the iterations of the loop 
-                        }                            else
-                        {
-                            q=0;                                //if the registration number doesn't match the element of the array reg_no then the value of the boolean variable q is retained and j increments by 1
-                            j++;
-					    }
-                        }
-                        if(q==1)                                    //if the value of the boolean variable is one then this means that the registration number has been found among the registration numbers stored in the array reg_no
-                        {
-                    	    cout<<"Name : "<<name[j]<<endl;
-                    	    cout<<"Registration number : "<<reg_no[j]<<endl;
-                    	    cout<<"Password : "<<password[j]<<endl;
-                    	    cout<<"Bill due : "<<bill[j]<<endl;
-                    	    cout<<"------------------------------------------------------"<<endl;
-					    }
-                        else
-                        {
-                            cout<<"Invalid registration number.";   //if the value of the boolean variable is not 1 but 0, then this means that the registration number has not been found among the registration numbers stored in the array
-                        }
-					}
-                    break;
-                    case 'U':
-                    {
-                        cout<<"Enter the student registration number : ";
-                        cin>>check_r;
-                        bool q=0;
-                        int j=0;
-                        while((j<total)&&(q!=1))
-                        {
-                            if(reg_no[j]==check_r)
-                            {
-                                q=1;
-                            }
-                            else
-                            {
-                                q=0; 
-                                j++;
-						    }
-                        }
-                        if(q==1)                                    //if the value of the boolean variable is 1, that means that the registration number of that particular student has been found
-                        {
-                            cout<<bill[j]<<endl;
-                            cout<<"Enter P if the bill is payed and N if not: ";
-                            char r;
-                            cin>>r;
-                            if(r=='P')
-                            {
-                                bill[j]=0;
-                                cout<<"The due bill of the student "<<name[j]<<", registration number "<<reg_no[j]<< "is: "<<bill[j]<<endl;
-                            }
-                            else if(r=='N')
-                            {
-                                cout<<"The due bill is not payed"<<endl;
-                                cout<<"The due bill of the student "<<name[j]<<", registration number "<<reg_no[j]<< "is: "<<bill[j]<<endl;
-                            }
-                            else
-                            {
-                                cout<<"Invalid input."<<endl;
-                            }
-                            cout<<"------------------------------------------------------"<<endl;
-                        }
-
-                    }
-                    b=0;
+                    checkStudentProfileFunction(check_r,total,reg_no,name,password,bill);
+				}
+                break;
+                case 'U':
+                {
+                    billPaymentFunction(check_r,total,reg_no,bill,name);
+                }
+                b=0;
             }
         }
         else
