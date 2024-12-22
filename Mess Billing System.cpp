@@ -63,19 +63,20 @@ void messInOutFunction(int check_r,int total,int reg_no[],bool check_io[])
 
 
 
-void addStudentFunction(int total,int n,string name[],int reg_no[],int password[],int bill[])
+void addStudentFunction(int &total,int &n,string name[],int reg_no[],int password[],int bill[],bool check_io[])
 {
-    total=n+1;                                      //increases the total number of students as a new one is added
+    total=total+1;                                      //increases the total number of students as a new one is added
     cout<<"Enter the student name : ";
     cin>>name[n];                                   //stores the name of the new student in the array, names, of string datatype
     cout<<"Enter the student registration number : ";
     cin>>reg_no[n];                                 //stores the registration nuumber of the new student in the array, reg_no, element of the respective student
-    cout<<"Enter the student pasword."; 
+    cout<<"Enter the student pasword : "; 
     cin>>password[n];                               //sets the password of the new student to be used later by that student to check the menu of the week and to check his dues
     cout<<"New student name : "<<name[n]<<endl;
     cout<<"New student registration number : "<<reg_no[n]<<endl;
     cout<<"New student password : "<<password[n]<<endl;
-    bill[n]=0;                                      //as the student is new therefore his bill is initialized to zero
+    bill[n]=0;  //as the student is new therefore his bill is initialized to zero
+    check_io[n]=1;
     cout<<"------------------------------------------------------"<<endl;
     n++;
 }
@@ -234,14 +235,15 @@ int main()
     int password[100];                                               
     int bill[100];
     bool check_io[100];                                             //check_io is a boolean variable which keeps the record of all the students whether they are in or out
-    int n;  
-    int total;                                                      //used to store the total number of students registered in the mess
+    int n=0;  
+    int total=0;                                                      //used to store the total number of students registered in the mess
     int check_p,check_r;                                            //the variable check_p is used to check the validity of the user whether he is the manager or a student where as the check_r variable is used to store the regitration number of the student
-    string menu[21];                                                //used to store the names of the meal per day
+    string menu[21]= {"CHICKEN_SOUP","RICE_PILAF","CHOCOLATE_CAKE","COFFEE","FRUIT_SALAD","ROASTED_VEGETABLES","TOMATO_BASIL_SOUP","GREEK_SALAD","BEEF_STROGANOFF","STUFFED_PEPPERS","APPLE_PIE","PASTA_PRIMAVERA","BAKED_SALMON","CHILLI_CON_CARNE","COLESLAW","MINESTRONE_SOUP","CAESAR_SALAD","VEGETABLE_STIR_FRY","STEAMED_BROCCOLI","ICED_TEA","LEMMONADE"};                           //used to store the names of the meal per day                                               //used to store the names of the meal per day
     int m=0;
-    string day[7];                                                  //array used to make a record of seven days
+    string day[7]={"MONDAY","TUESDAY","WEDNESDAY","THURSDAY","FRIDAY","SATURDAY","SUNDAY"};                                                  //array used to make a record of seven days
+    int v=0;                                                  //array used to make a record of seven days
     int v=0;
-    int price[21];                                                  //array to store the price of the respective meal in the menu
+    int price[21]={200,150,130,160,150,400,160,130,150,200,130,160,150,200,150,350,160,190,180,160,130};                                                  //array to store the price of the respective meal in the menu
     bool b;
     n=0;
     cout<<"Enter the manager password to start : ";
@@ -256,7 +258,7 @@ int main()
     {
         cout<<"Enter the password : ";                              //used for checking the validity
         cin>>check_p;
-        if(check_p==68422233)                                       //this password is used to check the validity of the user as a manager specifically               
+        if(check_p==68422486)                                       //this password is used to check the validity of the user as a manager specifically               
         {
             char checker;
             cout<<"Press M to change menu. "<<endl;
@@ -283,7 +285,7 @@ int main()
                 break;
                 case 'A':                                           //chunk of code used for adding a new student to the mess
                 {
-                    addStudentFunction(total,n,name,reg_no,password,bill);
+                    addStudentFunction(total,n,name,reg_no,password,bill,check_io);
                 }
                 break;
                 case 'C':                                           //this case closes the mess billing system as the compiler reaches the condition of the do while loop which states that the loop will keep on iterating till the value of the string variable oc is 'c'
@@ -326,6 +328,7 @@ int main()
         cout<<"Enter your registration number : ";
         cin>>check_r;                                               //the registation number of the student who is trying to enter the system is stored in the variable check_r
         int i=0;
+		b=0;
         while((i<total)&&(b!=1))                                    //loop is used to find out the student with the entered registration number
         {
             if(reg_no[i]==check_r)                                  //if the student is found in the record then the boolean variable b initializes to 1
@@ -342,12 +345,13 @@ int main()
         {
         	cout<<"Enter your password.";
         	cin>>check_r;                                           //password of the student entering the system is entered over here to authenticate whether he is the real student or not
-        	if(check_r==password[i]||check_r==68422233)             //either the particular student or the manager can enter into the account of the particular student
+        	if(check_r==password[i]||check_r==68422486)             //either the particular student or the manager can enter into the account of the particular student
             {
-                int t=3;
-                int k;
+		    if(check_io[i]==1)
+		    {
+		int t=0;
+                int k=0;
                 int o=0;
-                cout<<"Today's menu : "<<endl;
                 cout<<"Enter the day: "<<endl;
           	    string d;                                           //creation of a new string variable used to store the entered password of the student to be matched with all the passwords of the students in the record
 		        cin>>d;
@@ -356,14 +360,32 @@ int main()
             	    o++;
             	    t=t+3;
 			    }
-                for(k=t-3;k>=t-1;k++)
+                for(k=t;k<t+3;k++)
                 {
-            	    cout<<menu[k]<<endl;
-			    }
+            	    cout<<k-t+1<<". "<<menu[k]<<" price : "<<price[k]<<endl;
+		}
+		     cout<<"Do you want to take this meal or not(Y/N) : ";
+                char c;
+                cin>>c;
+                if(c=='Y')
+                {
+                    cout<<"Which meal you want to take : ";
+                    cin>>o;
+                    if(o==1)
+                    bill[i]=bill[i]+price[t];
+                    else if(o==2)
+                    bill[i]=bill[i]+price[t+1];
+                    else if(o==3)
+                    bill[i]=bill[i]+price[t+2];
+                    else
+                    cout<<"Invalid input"<<endl;
+                }
                 cout<<"Name : "<<name[i]<<endl;
                 cout<<"Registration number : "<<reg_no[i]<<endl;
-                bill[i]=bill[i]+price[i];
                 cout<<"Your dues are : "<<bill[i]<<endl;
+		}
+		    else
+			    cout<<"Your mess is out"<<endl;
        		}
        		else
             {
