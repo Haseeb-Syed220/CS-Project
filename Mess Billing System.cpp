@@ -242,7 +242,6 @@ int main()
     int m=0;
     string day[7]={"MONDAY","TUESDAY","WEDNESDAY","THURSDAY","FRIDAY","SATURDAY","SUNDAY"};                                                  //array used to make a record of seven days
     int v=0;                                                  //array used to make a record of seven days
-    int v=0;
     int price[21]={200,150,130,160,150,400,160,130,150,200,130,160,150,200,150,350,160,190,180,160,130};                                                  //array to store the price of the respective meal in the menu
     bool b;
     n=0;
